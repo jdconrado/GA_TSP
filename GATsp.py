@@ -6,13 +6,13 @@ author @jdconrado
 from random import random, randint
 
 class Population:
-    def __init__(self, popSize, cities, cost, start, pc, pm, totalI):
+    def __init__(self, popSize, cities, cost, start, pc, totalI):
         self.pSize = popSize
         self.cities = cities
         self.costs = cost
         self.start = start
         self.pc = pc
-        self.pm = pm
+        self.pm = None
         self.numGen = 0
         self.individuals = []
         self.thisGenBest = None
@@ -204,6 +204,7 @@ class Population:
     
     def run(self):
         self.pm = 1/(2+self.numGen*(len(self.cities) - 2)/(self.totalI -1))
+        print("PM: ", self.pm)
         fineIndivs = self.execSelection()
         newGen = self.execCrossover(fineIndivs)
         newGen = self.execMutation(newGen)

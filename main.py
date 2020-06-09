@@ -2,7 +2,7 @@ import sys
 from math import sqrt
 from GATsp import Population
 
-f = open("n20w20.001.txt","r")
+f = open("n100w100.002.txt","r")
 lines = f.readlines()
 f.close()
 
@@ -20,10 +20,12 @@ def costMatrix(cities):
     return matrix
 
 
-cities = extractCrities(lines[6:len(lines)-1]) #From 5 when 100, 6 when 20
+cities = extractCrities(lines[5:len(lines)-1]) #From 5 when 100, 6 when 20
 costs = costMatrix(cities)
 
-pop = Population(100, cities, costs, 0, 0.5, 0.05, 100)
+totalI = int(sys.argv[1])
+
+pop = Population(100, cities, costs, 0, float(sys.argv[2]), totalI)
 pop.initPopulation()
 print("-------------------------------------")
 print("Generation #",pop.numGen)
@@ -33,7 +35,7 @@ print("This generation best cost: ",1/pop.thisGenBest[1])
 print("Current global optimum tour: ", [e[0] for e in  pop.globalOpti[0]])
 print("Current global optimum cost: ", 1/pop.globalOpti[1])
 
-for i in range(100):
+for i in range(totalI):
     pop.run()
     print("-------------------------------------")
     print("Generation #",pop.numGen)
