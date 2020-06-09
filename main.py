@@ -1,6 +1,6 @@
 import sys
 from math import sqrt
-from GA_TSP import Population
+from GATsp import Population
 
 f = open("n20w20.001.txt","r")
 lines = f.readlines()
@@ -23,7 +23,7 @@ def costMatrix(cities):
 cities = extractCrities(lines[6:len(lines)-1]) #From 5 when 100, 6 when 20
 costs = costMatrix(cities)
 
-pop = Population(100, cities, costs, 0, 0.5, 0.05)
+pop = Population(100, cities, costs, 0, 0.5, 0.05, 100)
 pop.initPopulation()
 print("-------------------------------------")
 print("Generation #",pop.numGen)

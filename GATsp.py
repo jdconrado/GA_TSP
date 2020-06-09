@@ -6,7 +6,7 @@ author @jdconrado
 from random import random, randint
 
 class Population:
-    def __init__(self, popSize, cities, cost, start, pc, pm):
+    def __init__(self, popSize, cities, cost, start, pc, pm, totalI):
         self.pSize = popSize
         self.cities = cities
         self.costs = cost
@@ -19,6 +19,7 @@ class Population:
         self.globalOpti = None
         self.fitsum = 0
         self.fitAve = 0
+        self.totalI = totalI
     
     def randomIndividual(self):
         cities = self.cities[:]
@@ -35,7 +36,7 @@ class Population:
             cities[j] = temp
         return cities
     
-    def calcInfivFitness(self, tour):
+    def calcIndivFitness(self, tour):
         cost = 0
         for i in range(len(tour)):
             if i == len(tour) - 1:
@@ -49,7 +50,7 @@ class Population:
         fitsum = 0
         best = None
         for i in individuals:
-            fitness =  self.calcInfivFitness(i[0])
+            fitness =  self.calcIndivFitness(i[0])
             i[1] = fitness
             if best is None:
                 best = i
@@ -202,6 +203,7 @@ class Population:
         return newGen
     
     def run(self):
+        self.pm = 1/(2+self.numGen*(len(self.cities) - 2)/(self.totalI -1))
         fineIndivs = self.execSelection()
         newGen = self.execCrossover(fineIndivs)
         newGen = self.execMutation(newGen)
